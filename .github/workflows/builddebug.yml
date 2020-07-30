@@ -1,31 +1,31 @@
-name: Build debug apk
+name: On push
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
-    name: Build APK
+    name: Build Debug APK
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name:  Setup Java
-      uses: actions/setup-java@v1
-      with:
-        java-version: '12.x'
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v1
-      with:
-        flutter-version: '1.17.5'
-    - name: Install Packages
-      run: flutter pub get
-    - name: Build Debug APK
-      run: flutter build apk --debug --split-per-abi
-    - name: Upload Debug APK
-      uses: actions/upload-artifact@v2
-      with:
-        name: Debug APK
-        path: "build/app/outputs/apk/debug/*.apk"
+      - uses: actions/checkout@v1
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: "1.17.5"
+      - name: Install Packages
+        run: flutter pub get
+      - name: Build Debug APK
+        run: flutter build apk --debug --split-per-abi
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: Debug APK
+          path: "build/app/outputs/apk/debug/*.apk"
